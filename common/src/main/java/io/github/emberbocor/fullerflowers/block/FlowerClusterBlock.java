@@ -101,7 +101,7 @@ public final class FlowerClusterBlock extends Block implements BonemealableBlock
     @Override
     protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
         return !context.isSecondaryUseActive() && context.getItemInHand().is(flower.asItem())
-                && FlowerGrowth.canAdd(context.getLevel(), flower, state.getValue(FLOWERS))
+                && FlowerGrowth.canAddByPlacing(context.getLevel(), flower, state.getValue(FLOWERS))
                 || super.canBeReplaced(state, context);
     }
 

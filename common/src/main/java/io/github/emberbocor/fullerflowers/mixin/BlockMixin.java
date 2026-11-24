@@ -12,12 +12,13 @@ import net.minecraft.world.level.block.state.BlockState;
 
 @Mixin(Block.class)
 public abstract class BlockMixin {
-    // A supported vanilla flower item placed into that flower or its cluster places the cluster with one flower more.
+    // A supported vanilla flower item placed into that flower or its cluster places the cluster with one flower more
+    // on the server, and nothing on the client.
     @Inject(method = "getStateForPlacement", at = @At("HEAD"), cancellable = true)
     private void fullerflowers$placeInCluster(BlockPlaceContext context, CallbackInfoReturnable<BlockState> cir) {
-        BlockState state = FlowerGrowth.stateForPlacement((Block) (Object) this, context);
-        if (state != null) {
-            cir.setReturnValue(state);
+        Block flower = (Block) (Object) this;
+        if (FlowerGrowth.isAddedByPlacing(flower, context)) {
+            cir.setReturnValue(FlowerGrowth.stateAddedByPlacing(flower, context));
         }
     }
 }
