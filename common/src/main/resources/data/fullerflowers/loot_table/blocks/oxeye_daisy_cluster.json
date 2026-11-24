@@ -1,0 +1,119 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "fullerflowers:oxeye_daisy_cluster",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "flower_amount": "2"
+                  }
+                }
+              ],
+              "count": 2.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "fullerflowers:oxeye_daisy_cluster",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "flower_amount": "3"
+                  }
+                }
+              ],
+              "count": 3.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "fullerflowers:oxeye_daisy_cluster",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "flower_amount": "4"
+                  }
+                }
+              ],
+              "count": 4.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "fullerflowers:oxeye_daisy_cluster",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "flower_amount": "5"
+                  }
+                }
+              ],
+              "count": 5.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "fullerflowers:oxeye_daisy_cluster",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "flower_amount": "6"
+                  }
+                }
+              ],
+              "count": 6.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "fullerflowers:oxeye_daisy_cluster",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "flower_amount": "7"
+                  }
+                }
+              ],
+              "count": 7.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "fullerflowers:oxeye_daisy_cluster",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "flower_amount": "8"
+                  }
+                }
+              ],
+              "count": 8.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "function": "minecraft:explosion_decay"
+            }
+          ],
+          "name": "minecraft:oxeye_daisy"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "fullerflowers:blocks/oxeye_daisy_cluster"
+}

@@ -1,0 +1,80 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:flower_pot"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "fullerflowers:potted_torchflower_cluster",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "flower_amount": "2"
+                  }
+                }
+              ],
+              "count": 2.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "fullerflowers:potted_torchflower_cluster",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "flower_amount": "3"
+                  }
+                }
+              ],
+              "count": 3.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "fullerflowers:potted_torchflower_cluster",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "flower_amount": "4"
+                  }
+                }
+              ],
+              "count": 4.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:torchflower"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "fullerflowers:blocks/potted_torchflower_cluster"
+}

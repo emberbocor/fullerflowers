@@ -1,0 +1,6 @@
+{
+  "parent": "fullerflowers:block/cluster_6",
+  "textures": {
+    "flower": "minecraft:block/poppy"
+  }
+}

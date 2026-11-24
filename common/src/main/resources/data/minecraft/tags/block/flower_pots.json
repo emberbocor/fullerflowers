@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "fullerflowers:potted_dandelion_cluster",
+    "fullerflowers:potted_poppy_cluster",
+    "fullerflowers:potted_blue_orchid_cluster",
+    "fullerflowers:potted_allium_cluster",
+    "fullerflowers:potted_azure_bluet_cluster",
+    "fullerflowers:potted_red_tulip_cluster",
+    "fullerflowers:potted_orange_tulip_cluster",
+    "fullerflowers:potted_white_tulip_cluster",
+    "fullerflowers:potted_pink_tulip_cluster",
+    "fullerflowers:potted_oxeye_daisy_cluster",
+    "fullerflowers:potted_cornflower_cluster",
+    "fullerflowers:potted_lily_of_the_valley_cluster",
+    "fullerflowers:potted_torchflower_cluster",
+    "fullerflowers:potted_wither_rose_cluster"
+  ]
+}

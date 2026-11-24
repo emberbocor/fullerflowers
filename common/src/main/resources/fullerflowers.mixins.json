@@ -1,0 +1,20 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "io.github.emberbocor.fullerflowers.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "BlockBehaviourMixin",
+    "BlockMixin",
+    "EntityTypeMixin",
+    "FireBlockAccessor",
+    "FlowerPotBlockMixin",
+    "WalkNodeEvaluatorMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "fullerflowers:block/flower_pot_cutout"
+      }
+    },
+    {
+      "when": {
+        "flower_amount": "2"
+      },
+      "apply": [
+        {
+          "model": "fullerflowers:block/potted_oxeye_daisy_cluster_2"
+        },
+        {
+          "model": "fullerflowers:block/potted_oxeye_daisy_cluster_2",
+          "y": 90
+        },
+        {
+          "model": "fullerflowers:block/potted_oxeye_daisy_cluster_2",
+          "y": 180
+        },
+        {
+          "model": "fullerflowers:block/potted_oxeye_daisy_cluster_2",
+          "y": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "flower_amount": "3"
+      },
+      "apply": [
+        {
+          "model": "fullerflowers:block/potted_oxeye_daisy_cluster_3"
+        },
+        {
+          "model": "fullerflowers:block/potted_oxeye_daisy_cluster_3",
+          "y": 90
+        },
+        {
+          "model": "fullerflowers:block/potted_oxeye_daisy_cluster_3",
+          "y": 180
+        },
+        {
+          "model": "fullerflowers:block/potted_oxeye_daisy_cluster_3",
+          "y": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "flower_amount": "4"
+      },
+      "apply": [
+        {
+          "model": "fullerflowers:block/potted_oxeye_daisy_cluster_4"
+        },
+        {
+          "model": "fullerflowers:block/potted_oxeye_daisy_cluster_4",
+          "y": 90
+        },
+        {
+          "model": "fullerflowers:block/potted_oxeye_daisy_cluster_4",
+          "y": 180
+        },
+        {
+          "model": "fullerflowers:block/potted_oxeye_daisy_cluster_4",
+          "y": 270
+        }
+      ]
+    }
+  ]
+}

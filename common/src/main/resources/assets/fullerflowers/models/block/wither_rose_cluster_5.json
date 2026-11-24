@@ -1,0 +1,6 @@
+{
+  "parent": "fullerflowers:block/cluster_5",
+  "textures": {
+    "flower": "minecraft:block/wither_rose"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "fullerflowers:block/cluster_7",
+  "textures": {
+    "flower": "minecraft:block/pink_tulip"
+  }
+}
