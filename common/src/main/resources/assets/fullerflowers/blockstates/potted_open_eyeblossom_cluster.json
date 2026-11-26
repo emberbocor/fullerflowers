@@ -2,7 +2,7 @@
   "multipart": [
     {
       "apply": {
-        "model": "fullerflowers:block/flower_pot_cutout"
+        "model": "minecraft:block/flower_pot"
       }
     },
     {

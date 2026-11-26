@@ -18,7 +18,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /** The cluster block and the potted cluster block of each supported vanilla small flower. */
@@ -75,13 +74,12 @@ public final class ModBlocks {
 
     /** Gives each cluster the fire behavior of its vanilla flower. Call after vanilla bootstrap and registration. */
     public static void copyFlammability() {
-        FireBlock fire = (FireBlock) Blocks.FIRE;
-        FireBlockAccessor odds = (FireBlockAccessor) fire;
+        FireBlockAccessor fire = (FireBlockAccessor) Blocks.FIRE;
         for (FlowerClusterBlock cluster : CLUSTER_BY_FLOWER.values()) {
-            int ignite = odds.fullerflowers$getIgniteOdds().getInt(cluster.flower());
-            int burn = odds.fullerflowers$getBurnOdds().getInt(cluster.flower());
+            int ignite = fire.fullerflowers$getIgniteOdds().getInt(cluster.flower());
+            int burn = fire.fullerflowers$getBurnOdds().getInt(cluster.flower());
             if (ignite > 0 || burn > 0) {
-                fire.setFlammable(cluster, ignite, burn);
+                fire.fullerflowers$setFlammable(cluster, ignite, burn);
             }
         }
     }
