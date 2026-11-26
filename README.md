@@ -10,7 +10,7 @@ Available for NeoForge, Forge and Fabric.
 
 ## Features
 
-- **Flower clusters.** Up to 4 flowers of the same kind in one block by default, configurable up to 8, for all 14 small vanilla flowers.
+- **Flower clusters.** Up to 4 flowers of the same kind in one block by default, configurable up to 8, for all 16 small vanilla flowers.
 - **Bone meal grows them.** Bone meal on a flower makes a cluster of 2 and adds one flower per use. A full cluster drops a flower instead, like the tall flowers do.
 - **Place to add.** Placing the same flower on a flower or cluster adds it to the block, like pink petals. Sneak to place it next to the flower as usual.
 - **Fuller flower pots.** A potted flower takes more of the same flower, up to 3 by default, and gives them back one by one.
@@ -33,7 +33,8 @@ Available for NeoForge, Forge and Fabric.
 | Using an empty hand on a pot with several flowers | One flower comes out. With 2 flowers, the normal potted flower is left. |
 | Breaking a pot with several flowers | The flower pot and all of its flowers drop. |
 
-- **Supported flowers.** Dandelion, poppy, blue orchid, allium, azure bluet, red tulip, orange tulip, white tulip, pink tulip, oxeye daisy, cornflower, lily of the valley, torchflower and wither rose. Tall flowers, pink petals and flowers from other mods are not changed.
+- **Supported flowers.** Dandelion, poppy, blue orchid, allium, azure bluet, red tulip, orange tulip, white tulip, pink tulip, oxeye daisy, cornflower, lily of the valley, torchflower, wither rose, open eyeblossom and closed eyeblossom. Tall flowers, pink petals and flowers from other mods are not changed.
+- **Eyeblossoms.** Eyeblossom clusters and pots open and close like the vanilla eyeblossom, at the same time and with the same sounds and particles, and keep their number of flowers. Open and closed eyeblossoms are two flowers in the config, each with its own limit.
 - **One flower is the vanilla flower.** A block with one flower is the normal vanilla flower, and a pot with one flower is the normal vanilla potted flower. Clusters start at 2.
 - **Limits.** Each flower has a limit, 4 by default and up to 8. A pot holds up to 3 flowers by default and never more than 4, and never more than the limit of its flower. A flower with a limit of 1 behaves exactly like vanilla: bone meal does nothing on it and placing the same flower does not stack.
 - **Bone meal is only used when something happens.** Bone meal is used up, with the usual particles, only when it adds a flower or drops one.
@@ -48,12 +49,12 @@ Available for NeoForge, Forge and Fabric.
 
 | | NeoForge | Forge | Fabric |
 |---|---|---|---|
-| Minecraft | 1.21.1 | 1.21.1 | 1.21.1 |
-| Loader | NeoForge 21.1.1 or newer | Forge 52.0.0 or newer | Fabric Loader 0.15.11 or newer |
-| Other | | | Fabric API 0.102.0 or newer |
-| Jar | `fullerflowers-neoforge-1.21.1-<version>.jar` | `fullerflowers-forge-1.21.1-<version>.jar` | `fullerflowers-fabric-1.21.1-<version>.jar` |
+| Minecraft | 1.21.11 | 1.21.11 | 1.21.11 |
+| Loader | NeoForge 21.11.42 or newer | Forge 61.0.1 or newer | Fabric Loader 0.17.3 or newer |
+| Other | | | Fabric API 0.139.5 or newer |
+| Jar | `fullerflowers-neoforge-1.21.11-<version>.jar` | `fullerflowers-forge-1.21.11-<version>.jar` | `fullerflowers-fabric-1.21.11-<version>.jar` |
 
-On Minecraft 1.21.1, NeoForge and Forge are separate loaders that do not run each other's mods, so each has its own jar. Pick the jar that matches your loader.
+On Minecraft 1.21.11, NeoForge and Forge are separate loaders that do not run each other's mods, so each has its own jar. Pick the jar that matches your loader.
 
 The Fabric jar bundles [NightConfig](https://github.com/TheElectronWill/night-config) (core and toml, LGPL-3.0) to read the TOML config. NeoForge and Forge already ship it.
 
@@ -83,7 +84,8 @@ maxFlowers = 4
 # Per-flower values that replace maxFlowers for the flowers listed, for example
 # ["minecraft:poppy=5", "minecraft:wither_rose=1"]. Each value is a whole number from 1 to 8.
 # Supported flowers: dandelion, poppy, blue_orchid, allium, azure_bluet, red_tulip, orange_tulip,
-# white_tulip, pink_tulip, oxeye_daisy, cornflower, lily_of_the_valley, torchflower, wither_rose.
+# white_tulip, pink_tulip, oxeye_daisy, cornflower, lily_of_the_valley, torchflower, wither_rose,
+# open_eyeblossom, closed_eyeblossom.
 flowerOverrides = []
 
 # Most flowers one flower pot can hold, a whole number from 1 to 4.

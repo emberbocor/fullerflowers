@@ -14,6 +14,8 @@
     "fullerflowers:cornflower_cluster",
     "fullerflowers:lily_of_the_valley_cluster",
     "fullerflowers:torchflower_cluster",
-    "fullerflowers:wither_rose_cluster"
+    "fullerflowers:wither_rose_cluster",
+    "fullerflowers:open_eyeblossom_cluster",
+    "fullerflowers:closed_eyeblossom_cluster"
   ]
 }

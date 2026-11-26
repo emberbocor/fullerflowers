@@ -10,7 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -149,7 +149,7 @@ public final class FlowerGrowth {
      * Returns null when the pot or item does not match or the pot may not grow, so vanilla goes on as usual.
      */
     @Nullable
-    public static ItemInteractionResult addToVanillaPot(Block pottedFlower, ItemStack stack, Level level, BlockPos pos,
+    public static InteractionResult addToVanillaPot(Block pottedFlower, ItemStack stack, Level level, BlockPos pos,
             Player player) {
         PottedFlowerClusterBlock pot = ModBlocks.potOf(pottedFlower);
         if (pot == null || !stack.is(pot.flower().asItem())
@@ -159,12 +159,12 @@ public final class FlowerGrowth {
         return addToPot(pot.defaultBlockState(), stack, level, pos, player);
     }
 
-    static ItemInteractionResult addToPot(BlockState newState, ItemStack stack, Level level, BlockPos pos, Player player) {
+    static InteractionResult addToPot(BlockState newState, ItemStack stack, Level level, BlockPos pos, Player player) {
         level.setBlock(pos, newState, Block.UPDATE_ALL);
         level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
         player.awardStat(Stats.POT_FLOWER);
         stack.consume(1, player);
-        return ItemInteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     /** A cluster as its vanilla flower, for vanilla checks that name the flower block (wither rose danger). */

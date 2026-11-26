@@ -11,7 +11,7 @@ import com.electronwill.nightconfig.core.UnmodifiableConfig;
 
 import io.github.emberbocor.fullerflowers.FullerFlowers;
 import io.github.emberbocor.fullerflowers.block.ModBlocks;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 final class ServerConfigReader {
     private static final Set<String> KEYS = Set.of("maxFlowers", "flowerOverrides", "maxPotFlowers");
@@ -52,7 +52,7 @@ final class ServerConfigReader {
         return fallback;
     }
 
-    private Map<ResourceLocation, Integer> flowerOverrides(UnmodifiableConfig config, Map<ResourceLocation, Integer> fallback) {
+    private Map<Identifier, Integer> flowerOverrides(UnmodifiableConfig config, Map<Identifier, Integer> fallback) {
         Object value = config.get("flowerOverrides");
         if (value == null) {
             return fallback;
@@ -61,14 +61,14 @@ final class ServerConfigReader {
             FullerFlowers.LOGGER.warn("{}: flowerOverrides must be a list such as [\"minecraft:poppy=5\"], got '{}'; using []", file, value);
             return fallback;
         }
-        Map<ResourceLocation, Integer> overrides = new LinkedHashMap<>();
+        Map<Identifier, Integer> overrides = new LinkedHashMap<>();
         for (Object element : list) {
-            ResourceLocation flower = null;
+            Identifier flower = null;
             Integer max = null;
             if (element instanceof String string) {
                 int separator = string.lastIndexOf('=');
                 if (separator > 0) {
-                    flower = ResourceLocation.tryParse(string.substring(0, separator).trim());
+                    flower = Identifier.tryParse(string.substring(0, separator).trim());
                     max = parseWholeNumber(string.substring(separator + 1).trim());
                 }
             }

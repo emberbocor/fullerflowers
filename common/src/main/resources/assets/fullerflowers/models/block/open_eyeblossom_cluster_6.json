@@ -1,0 +1,7 @@
+{
+  "parent": "fullerflowers:block/cluster_emissive_6",
+  "textures": {
+    "flower": "minecraft:block/open_eyeblossom",
+    "flower_emissive": "minecraft:block/open_eyeblossom_emissive"
+  }
+}

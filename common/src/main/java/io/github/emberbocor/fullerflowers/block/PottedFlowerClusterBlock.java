@@ -7,16 +7,17 @@ import io.github.emberbocor.fullerflowers.platform.Services;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -79,11 +80,11 @@ public final class PottedFlowerClusterBlock extends Block {
     }
 
     @Override
-    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level,
-            BlockPos pos, BlockPos neighborPos) {
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess,
+            BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
         return direction == Direction.DOWN && !state.canSurvive(level, pos)
                 ? Blocks.AIR.defaultBlockState()
-                : super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+                : super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override
@@ -91,21 +92,27 @@ public final class PottedFlowerClusterBlock extends Block {
         return pottedFlower.defaultBlockState().isPathfindable(pathComputationType);
     }
 
+    // Only potted eyeblossom clusters tick (randomTicks copied from the vanilla potted eyeblossom).
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
+    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        EyeblossomSwitch.potRandomTick(state, level, pos, random);
+    }
+
+    @Override
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
             InteractionHand hand, BlockHitResult hitResult) {
         if (stack.is(flower.asItem())) {
             int count = state.getValue(FLOWERS);
             if (count < Math.min(MAX_FLOWERS, FlowerGrowth.maxPotFlowers(level, flower))) {
                 return FlowerGrowth.addToPot(state.setValue(FLOWERS, count + 1), stack, level, pos, player);
             }
-            return ItemInteractionResult.CONSUME;
+            return InteractionResult.CONSUME;
         }
         // Like a vanilla pot that already holds a plant: other pottable plants do nothing, anything else takes a flower out.
         if (stack.getItem() instanceof BlockItem blockItem && Services.PLATFORM.isPottable(blockItem.getBlock())) {
-            return ItemInteractionResult.CONSUME;
+            return InteractionResult.CONSUME;
         }
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.TRY_WITH_EMPTY_HAND;
     }
 
     @Override
@@ -119,13 +126,13 @@ public final class PottedFlowerClusterBlock extends Block {
         level.setBlock(pos, count > MIN_FLOWERS ? state.setValue(FLOWERS, count - 1) : pottedFlower.defaultBlockState(),
                 Block.UPDATE_ALL);
         level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
-    // NeoForge and Forge deprecate this vanilla method; their pick block extension still calls it by default.
+    // NeoForge deprecates this vanilla method; its pick block extension still calls it by default.
     @SuppressWarnings("deprecation")
     @Override
-    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
+    protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
         return new ItemStack(flower);
     }
 }

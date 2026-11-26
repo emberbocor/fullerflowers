@@ -6,7 +6,7 @@ import java.util.Map;
 import org.jetbrains.annotations.Nullable;
 
 import io.github.emberbocor.fullerflowers.platform.Services;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
 
 public final class ServerConfig {
@@ -46,18 +46,18 @@ public final class ServerConfig {
         return !level.isClientSide() || serverRunning ? settings : null;
     }
 
-    public record Settings(int maxFlowers, Map<ResourceLocation, Integer> flowerOverrides, int maxPotFlowers) {
+    public record Settings(int maxFlowers, Map<Identifier, Integer> flowerOverrides, int maxPotFlowers) {
         public Settings {
             flowerOverrides = Map.copyOf(flowerOverrides);
         }
 
         /** Most flowers one block of this flower may hold, 1 to 8. */
-        public int maxFlowers(ResourceLocation flower) {
+        public int maxFlowers(Identifier flower) {
             return flowerOverrides.getOrDefault(flower, maxFlowers);
         }
 
         /** Most flowers one flower pot of this flower may hold, 1 to 4. */
-        public int maxPotFlowers(ResourceLocation flower) {
+        public int maxPotFlowers(Identifier flower) {
             return Math.min(maxPotFlowers, maxFlowers(flower));
         }
     }

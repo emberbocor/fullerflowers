@@ -9,12 +9,13 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
@@ -71,16 +72,16 @@ public final class FlowerClusterBlock extends Block implements BonemealableBlock
     }
 
     @Override
-    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level,
-            BlockPos pos, BlockPos neighborPos) {
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess,
+            BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
         return !state.canSurvive(level, pos)
                 ? Blocks.AIR.defaultBlockState()
-                : super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+                : super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override
-    protected boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
-        return flower.defaultBlockState().propagatesSkylightDown(level, pos);
+    protected boolean propagatesSkylightDown(BlockState state) {
+        return flower.defaultBlockState().propagatesSkylightDown();
     }
 
     @Override
@@ -89,13 +90,25 @@ public final class FlowerClusterBlock extends Block implements BonemealableBlock
     }
 
     @Override
-    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        flower.defaultBlockState().entityInside(level, pos, entity);
+    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier applier,
+            boolean intersects) {
+        flower.defaultBlockState().entityInside(level, pos, entity, applier, intersects);
     }
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         flower.animateTick(flower.defaultBlockState(), level, pos, random);
+    }
+
+    // Only eyeblossom clusters tick (randomTicks copied from the vanilla eyeblossom).
+    @Override
+    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        EyeblossomSwitch.clusterTick(state, level, pos, random, true);
+    }
+
+    @Override
+    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        EyeblossomSwitch.clusterTick(state, level, pos, random, false);
     }
 
     @Override
@@ -105,10 +118,10 @@ public final class FlowerClusterBlock extends Block implements BonemealableBlock
                 || super.canBeReplaced(state, context);
     }
 
-    // NeoForge and Forge deprecate this vanilla method; their pick block extension still calls it by default.
+    // NeoForge deprecates this vanilla method; its pick block extension still calls it by default.
     @SuppressWarnings("deprecation")
     @Override
-    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
+    protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
         return new ItemStack(flower);
     }
 

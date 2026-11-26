@@ -13,7 +13,9 @@ import org.jetbrains.annotations.Nullable;
 import io.github.emberbocor.fullerflowers.FullerFlowers;
 import io.github.emberbocor.fullerflowers.mixin.FireBlockAccessor;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
@@ -23,14 +25,14 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 public final class ModBlocks {
     private static final Map<Block, FlowerClusterBlock> CLUSTER_BY_FLOWER = new HashMap<>();
     private static final Map<Block, PottedFlowerClusterBlock> POT_BY_POTTED_FLOWER = new HashMap<>();
-    private static final Set<ResourceLocation> SUPPORTED_FLOWERS = new HashSet<>();
+    private static final Set<Identifier> SUPPORTED_FLOWERS = new HashSet<>();
     private static final List<Block> BLOCKS = new ArrayList<>();
 
     private ModBlocks() {
     }
 
     /** Creates and registers the blocks. Call once, while the block registry accepts entries. */
-    public static void register(BiConsumer<ResourceLocation, Block> registry) {
+    public static void register(BiConsumer<Identifier, Block> registry) {
         Block[][] flowers = {
                 {Blocks.DANDELION, Blocks.POTTED_DANDELION},
                 {Blocks.POPPY, Blocks.POTTED_POPPY},
@@ -46,16 +48,21 @@ public final class ModBlocks {
                 {Blocks.LILY_OF_THE_VALLEY, Blocks.POTTED_LILY_OF_THE_VALLEY},
                 {Blocks.TORCHFLOWER, Blocks.POTTED_TORCHFLOWER},
                 {Blocks.WITHER_ROSE, Blocks.POTTED_WITHER_ROSE},
+                {Blocks.OPEN_EYEBLOSSOM, Blocks.POTTED_OPEN_EYEBLOSSOM},
+                {Blocks.CLOSED_EYEBLOSSOM, Blocks.POTTED_CLOSED_EYEBLOSSOM},
         };
         for (Block[] pair : flowers) {
             Block flower = pair[0];
             Block pottedFlower = pair[1];
-            ResourceLocation flowerId = BuiltInRegistries.BLOCK.getKey(flower);
-            FlowerClusterBlock cluster = new FlowerClusterBlock(flower, BlockBehaviour.Properties.ofFullCopy(flower));
+            Identifier flowerId = BuiltInRegistries.BLOCK.getKey(flower);
+            Identifier clusterId = id(flowerId.getPath() + "_cluster");
+            Identifier potId = id("potted_" + flowerId.getPath() + "_cluster");
+            FlowerClusterBlock cluster = new FlowerClusterBlock(flower,
+                    BlockBehaviour.Properties.ofFullCopy(flower).setId(ResourceKey.create(Registries.BLOCK, clusterId)));
             PottedFlowerClusterBlock pot = new PottedFlowerClusterBlock(flower, pottedFlower,
-                    BlockBehaviour.Properties.ofFullCopy(pottedFlower));
-            registry.accept(id(flowerId.getPath() + "_cluster"), cluster);
-            registry.accept(id("potted_" + flowerId.getPath() + "_cluster"), pot);
+                    BlockBehaviour.Properties.ofFullCopy(pottedFlower).setId(ResourceKey.create(Registries.BLOCK, potId)));
+            registry.accept(clusterId, cluster);
+            registry.accept(potId, pot);
             CLUSTER_BY_FLOWER.put(flower, cluster);
             POT_BY_POTTED_FLOWER.put(pottedFlower, pot);
             SUPPORTED_FLOWERS.add(flowerId);
@@ -89,7 +96,7 @@ public final class ModBlocks {
         return POT_BY_POTTED_FLOWER.get(pottedFlower);
     }
 
-    public static boolean isSupportedFlower(ResourceLocation flower) {
+    public static boolean isSupportedFlower(Identifier flower) {
         return SUPPORTED_FLOWERS.contains(flower);
     }
 
@@ -98,7 +105,7 @@ public final class ModBlocks {
         return List.copyOf(BLOCKS);
     }
 
-    private static ResourceLocation id(String path) {
-        return ResourceLocation.fromNamespaceAndPath(FullerFlowers.MODID, path);
+    private static Identifier id(String path) {
+        return Identifier.fromNamespaceAndPath(FullerFlowers.MODID, path);
     }
 }

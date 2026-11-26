@@ -27,7 +27,8 @@ final class ServerConfigFile {
             # Per-flower values that replace maxFlowers for the flowers listed, for example
             # ["minecraft:poppy=5", "minecraft:wither_rose=1"]. Each value is a whole number from 1 to 8.
             # Supported flowers: dandelion, poppy, blue_orchid, allium, azure_bluet, red_tulip, orange_tulip,
-            # white_tulip, pink_tulip, oxeye_daisy, cornflower, lily_of_the_valley, torchflower, wither_rose.
+            # white_tulip, pink_tulip, oxeye_daisy, cornflower, lily_of_the_valley, torchflower, wither_rose,
+            # open_eyeblossom, closed_eyeblossom.
             flowerOverrides = []
 
             # Most flowers one flower pot can hold, a whole number from 1 to 4.

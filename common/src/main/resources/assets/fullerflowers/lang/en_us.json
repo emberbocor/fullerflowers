@@ -26,5 +26,9 @@
   "block.fullerflowers.torchflower_cluster": "Torchflower",
   "block.fullerflowers.potted_torchflower_cluster": "Potted Torchflower",
   "block.fullerflowers.wither_rose_cluster": "Wither Rose",
-  "block.fullerflowers.potted_wither_rose_cluster": "Potted Wither Rose"
+  "block.fullerflowers.potted_wither_rose_cluster": "Potted Wither Rose",
+  "block.fullerflowers.open_eyeblossom_cluster": "Open Eyeblossom",
+  "block.fullerflowers.potted_open_eyeblossom_cluster": "Potted Open Eyeblossom",
+  "block.fullerflowers.closed_eyeblossom_cluster": "Closed Eyeblossom",
+  "block.fullerflowers.potted_closed_eyeblossom_cluster": "Potted Closed Eyeblossom"
 }
