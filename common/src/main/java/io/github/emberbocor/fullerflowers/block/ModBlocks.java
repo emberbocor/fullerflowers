@@ -27,6 +27,8 @@ public final class ModBlocks {
     private static final Map<Block, PottedFlowerClusterBlock> POT_BY_POTTED_FLOWER = new HashMap<>();
     private static final Set<Identifier> SUPPORTED_FLOWERS = new HashSet<>();
     private static final List<Block> BLOCKS = new ArrayList<>();
+    private static final Identifier OPEN_EYEBLOSSOM = Identifier.withDefaultNamespace("open_eyeblossom");
+    private static final Identifier CLOSED_EYEBLOSSOM = Identifier.withDefaultNamespace("closed_eyeblossom");
 
     private ModBlocks() {
     }
@@ -98,6 +100,14 @@ public final class ModBlocks {
 
     public static boolean isSupportedFlower(Identifier flower) {
         return SUPPORTED_FLOWERS.contains(flower);
+    }
+
+    /**
+     * The flower whose config limit applies to this flower: open and closed eyeblossom share the limit of the open
+     * eyeblossom, so a cluster never goes over its limit by switching. Every other flower has its own.
+     */
+    public static Identifier limitId(Identifier flower) {
+        return flower.equals(CLOSED_EYEBLOSSOM) ? OPEN_EYEBLOSSOM : flower;
     }
 
     /** All blocks of the mod, clusters and potted clusters. */

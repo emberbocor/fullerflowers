@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.jetbrains.annotations.Nullable;
 
+import io.github.emberbocor.fullerflowers.block.ModBlocks;
 import io.github.emberbocor.fullerflowers.platform.Services;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
@@ -53,7 +54,7 @@ public final class ServerConfig {
 
         /** Most flowers one block of this flower may hold, 1 to 8. */
         public int maxFlowers(Identifier flower) {
-            return flowerOverrides.getOrDefault(flower, maxFlowers);
+            return flowerOverrides.getOrDefault(ModBlocks.limitId(flower), maxFlowers);
         }
 
         /** Most flowers one flower pot of this flower may hold, 1 to 4. */

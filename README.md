@@ -34,7 +34,7 @@ Available for NeoForge, Forge and Fabric.
 | Breaking a pot with several flowers | The flower pot and all of its flowers drop. |
 
 - **Supported flowers.** Dandelion, poppy, blue orchid, allium, azure bluet, red tulip, orange tulip, white tulip, pink tulip, oxeye daisy, cornflower, lily of the valley, torchflower, wither rose, open eyeblossom and closed eyeblossom. Tall flowers, pink petals and flowers from other mods are not changed.
-- **Eyeblossoms.** Eyeblossom clusters and pots open and close like the vanilla eyeblossom, at the same time and with the same sounds and particles, and keep their number of flowers. Open and closed eyeblossoms are two flowers in the config, each with its own limit.
+- **Eyeblossoms.** Eyeblossom clusters and pots open and close like the vanilla eyeblossom, at the same time and with the same sounds and particles, and keep their number of flowers. Open and closed eyeblossoms share one limit: an override for either one applies to both.
 - **One flower is the vanilla flower.** A block with one flower is the normal vanilla flower, and a pot with one flower is the normal vanilla potted flower. Clusters start at 2.
 - **Limits.** Each flower has a limit, 4 by default and up to 8. A pot holds up to 3 flowers by default and never more than 4, and never more than the limit of its flower. A flower with a limit of 1 behaves exactly like vanilla: bone meal does nothing on it and placing the same flower does not stack.
 - **Bone meal is only used when something happens.** Bone meal is used up, with the usual particles, only when it adds a flower or drops one.
@@ -63,7 +63,7 @@ The Fabric jar bundles [NightConfig](https://github.com/TheElectronWill/night-co
 Install the mod on the server and on every client. The clusters are new blocks, so a client needs the mod to know them:
 
 - **NeoForge, Forge and Fabric:** a client with the loader but without the mod cannot join a server that has it; the loader refuses it and lists what is missing.
-- **Vanilla clients** can connect, but are disconnected with a network error as soon as a cluster comes into view.
+- **Vanilla clients** can connect to NeoForge and Forge servers, but are disconnected with a network error as soon as a cluster comes into view. Fabric servers refuse them when they join, because Fabric API is required on the client.
 - **Forge:** the server list shows the server as incompatible for a client without the mod.
 
 The config lives on the server only; clients do not need it.
@@ -86,6 +86,7 @@ maxFlowers = 4
 # Supported flowers: dandelion, poppy, blue_orchid, allium, azure_bluet, red_tulip, orange_tulip,
 # white_tulip, pink_tulip, oxeye_daisy, cornflower, lily_of_the_valley, torchflower, wither_rose,
 # open_eyeblossom, closed_eyeblossom.
+# Open and closed eyeblossoms share one limit: an override for either one applies to both.
 flowerOverrides = []
 
 # Most flowers one flower pot can hold, a whole number from 1 to 4.

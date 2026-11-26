@@ -80,7 +80,7 @@ final class ServerConfigReader {
                 FullerFlowers.LOGGER.warn("{}: flowerOverrides entry '{}' must use a whole number from {} to {}, skipped",
                         file, element, ServerConfig.MIN_FLOWERS, ServerConfig.MAX_FLOWERS);
             } else {
-                overrides.put(flower, max);
+                overrides.put(ModBlocks.limitId(flower), max);
             }
         }
         return overrides;

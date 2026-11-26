@@ -29,6 +29,7 @@ final class ServerConfigFile {
             # Supported flowers: dandelion, poppy, blue_orchid, allium, azure_bluet, red_tulip, orange_tulip,
             # white_tulip, pink_tulip, oxeye_daisy, cornflower, lily_of_the_valley, torchflower, wither_rose,
             # open_eyeblossom, closed_eyeblossom.
+            # Open and closed eyeblossoms share one limit: an override for either one applies to both.
             flowerOverrides = []
 
             # Most flowers one flower pot can hold, a whole number from 1 to 4.
