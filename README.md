@@ -53,7 +53,7 @@ Available for NeoForge, Forge and Fabric.
 | Other | | | Fabric API 0.83.0 or newer |
 | Jar | `fullerflowers-forge-1.20.1-<version>.jar` | `fullerflowers-forge-1.20.1-<version>.jar` | `fullerflowers-fabric-1.20.1-<version>.jar` |
 
-On Minecraft 1.20.1, NeoForge still runs Forge mods, so the Forge jar is used for both. Pick the jar that matches your loader.
+On Minecraft 1.20.1, Forge and NeoForge use the same Forge jar. Fabric uses its own jar. Pick the jar that matches your loader.
 
 The Fabric jar bundles [NightConfig](https://github.com/TheElectronWill/night-config) (core and toml, LGPL-3.0) to read the TOML config. NeoForge and Forge already ship it.
 
@@ -62,7 +62,7 @@ The Fabric jar bundles [NightConfig](https://github.com/TheElectronWill/night-co
 Install the mod on the server and on every client. The clusters are new blocks, so a client needs the mod to know them:
 
 - **NeoForge, Forge and Fabric:** a client with the loader but without the mod cannot join a server that has it; the loader refuses it and lists what is missing.
-- **Vanilla clients** can connect, but are disconnected with a network error as soon as a cluster comes into view.
+- **Vanilla clients** can connect, but the chunks that contain a cluster fail to load for them and stay empty; the connection stays open.
 - **Forge:** the server list shows the server as incompatible for a client without the mod.
 
 The config lives on the server only; clients do not need it.
