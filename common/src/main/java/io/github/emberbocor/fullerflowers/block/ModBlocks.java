@@ -16,7 +16,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /** The cluster block and the potted cluster block of each supported vanilla small flower. */
@@ -29,7 +28,9 @@ public final class ModBlocks {
     private ModBlocks() {
     }
 
+    // Forge deprecates the vanilla block registry in favour of ForgeRegistries, which common code cannot use.
     /** Creates and registers the blocks. Call once, while the block registry accepts entries. */
+    @SuppressWarnings("deprecation")
     public static void register(BiConsumer<ResourceLocation, Block> registry) {
         Block[][] flowers = {
                 {Blocks.DANDELION, Blocks.POTTED_DANDELION},
@@ -51,9 +52,9 @@ public final class ModBlocks {
             Block flower = pair[0];
             Block pottedFlower = pair[1];
             ResourceLocation flowerId = BuiltInRegistries.BLOCK.getKey(flower);
-            FlowerClusterBlock cluster = new FlowerClusterBlock(flower, BlockBehaviour.Properties.ofFullCopy(flower));
+            FlowerClusterBlock cluster = new FlowerClusterBlock(flower, BlockBehaviour.Properties.copy(flower));
             PottedFlowerClusterBlock pot = new PottedFlowerClusterBlock(flower, pottedFlower,
-                    BlockBehaviour.Properties.ofFullCopy(pottedFlower));
+                    BlockBehaviour.Properties.copy(pottedFlower));
             registry.accept(id(flowerId.getPath() + "_cluster"), cluster);
             registry.accept(id("potted_" + flowerId.getPath() + "_cluster"), pot);
             CLUSTER_BY_FLOWER.put(flower, cluster);
@@ -66,13 +67,12 @@ public final class ModBlocks {
 
     /** Gives each cluster the fire behavior of its vanilla flower. Call after vanilla bootstrap and registration. */
     public static void copyFlammability() {
-        FireBlock fire = (FireBlock) Blocks.FIRE;
-        FireBlockAccessor odds = (FireBlockAccessor) fire;
+        FireBlockAccessor fire = (FireBlockAccessor) Blocks.FIRE;
         for (FlowerClusterBlock cluster : CLUSTER_BY_FLOWER.values()) {
-            int ignite = odds.fullerflowers$getIgniteOdds().getInt(cluster.flower());
-            int burn = odds.fullerflowers$getBurnOdds().getInt(cluster.flower());
+            int ignite = fire.fullerflowers$getIgniteOdds().getInt(cluster.flower());
+            int burn = fire.fullerflowers$getBurnOdds().getInt(cluster.flower());
             if (ignite > 0 || burn > 0) {
-                fire.setFlammable(cluster, ignite, burn);
+                fire.fullerflowers$setFlammable(cluster, ignite, burn);
             }
         }
     }
@@ -99,6 +99,6 @@ public final class ModBlocks {
     }
 
     private static ResourceLocation id(String path) {
-        return ResourceLocation.fromNamespaceAndPath(FullerFlowers.MODID, path);
+        return ResourceLocation.tryBuild(FullerFlowers.MODID, path);
     }
 }

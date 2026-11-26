@@ -1,11 +1,7 @@
 package io.github.emberbocor.fullerflowers.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -25,14 +21,14 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+// Vanilla 1.20.1 deprecates most BlockBehaviour methods for callers only; overriding them, and calling super from an
+// override, is how blocks implement them.
 /**
  * Two to eight flowers of one vanilla small flower in one block. Shape, soil, entity contact and particles come from
  * the vanilla flower; the rest of its behavior comes from the copied block properties.
  */
+@SuppressWarnings("deprecation")
 public final class FlowerClusterBlock extends Block implements BonemealableBlock {
-    public static final MapCodec<FlowerClusterBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            BuiltInRegistries.BLOCK.byNameCodec().fieldOf("flower").forGetter(FlowerClusterBlock::flower),
-            propertiesCodec()).apply(instance, FlowerClusterBlock::new));
     public static final int MIN_FLOWERS = 2;
     public static final int MAX_FLOWERS = 8;
     public static final IntegerProperty FLOWERS = IntegerProperty.create("flower_amount", MIN_FLOWERS, MAX_FLOWERS);
@@ -43,11 +39,6 @@ public final class FlowerClusterBlock extends Block implements BonemealableBlock
         super(properties);
         this.flower = flower;
         registerDefaultState(stateDefinition.any().setValue(FLOWERS, MIN_FLOWERS));
-    }
-
-    @Override
-    protected MapCodec<? extends FlowerClusterBlock> codec() {
-        return CODEC;
     }
 
     /** The vanilla flower this cluster is made of. */
@@ -61,17 +52,17 @@ public final class FlowerClusterBlock extends Block implements BonemealableBlock
     }
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return flower.defaultBlockState().getShape(level, pos, context);
     }
 
     @Override
-    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         return flower.defaultBlockState().canSurvive(level, pos);
     }
 
     @Override
-    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level,
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level,
             BlockPos pos, BlockPos neighborPos) {
         return !state.canSurvive(level, pos)
                 ? Blocks.AIR.defaultBlockState()
@@ -79,17 +70,17 @@ public final class FlowerClusterBlock extends Block implements BonemealableBlock
     }
 
     @Override
-    protected boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
+    public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
         return flower.defaultBlockState().propagatesSkylightDown(level, pos);
     }
 
     @Override
-    protected boolean isPathfindable(BlockState state, PathComputationType pathComputationType) {
-        return flower.defaultBlockState().isPathfindable(pathComputationType);
+    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
+        return flower.defaultBlockState().isPathfindable(level, pos, type);
     }
 
     @Override
-    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         flower.defaultBlockState().entityInside(level, pos, entity);
     }
 
@@ -99,21 +90,20 @@ public final class FlowerClusterBlock extends Block implements BonemealableBlock
     }
 
     @Override
-    protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
+    public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
         return !context.isSecondaryUseActive() && context.getItemInHand().is(flower.asItem())
                 && FlowerGrowth.canAddByPlacing(context.getLevel(), flower, state.getValue(FLOWERS))
                 || super.canBeReplaced(state, context);
     }
 
-    // NeoForge and Forge deprecate this vanilla method; their pick block extension still calls it by default.
-    @SuppressWarnings("deprecation")
+    // Forge deprecates this vanilla method; its pick block extension still calls it by default.
     @Override
-    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
+    public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
         return new ItemStack(flower);
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
         return true;
     }
 

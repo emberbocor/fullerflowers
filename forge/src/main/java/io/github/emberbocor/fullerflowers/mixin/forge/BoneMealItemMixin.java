@@ -16,7 +16,8 @@ import net.minecraft.world.level.Level;
 @Mixin(BoneMealItem.class)
 public abstract class BoneMealItemMixin {
     // After the Forge bone meal event, where vanilla checks for a BonemealableBlock: players (useOn) and dispensers (growCrop).
-    @Inject(method = "applyBonemeal", at = @At(value = "CONSTANT",
+    // applyBonemeal is added by Forge and has no obfuscated name, so it is not remapped.
+    @Inject(method = "applyBonemeal", remap = false, at = @At(value = "CONSTANT",
             args = "classValue=net/minecraft/world/level/block/BonemealableBlock", ordinal = 0), cancellable = true)
     private static void fullerflowers$growFlower(ItemStack stack, Level level, BlockPos pos, @Nullable Player player,
             CallbackInfoReturnable<Boolean> cir) {

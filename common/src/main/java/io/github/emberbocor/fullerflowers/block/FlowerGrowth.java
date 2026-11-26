@@ -10,7 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -35,13 +35,17 @@ public final class FlowerGrowth {
     private FlowerGrowth() {
     }
 
+    // Forge deprecates the vanilla block registry in favour of ForgeRegistries, which common code cannot use.
     /** Most flowers one block of this flower may hold, or {@link #UNKNOWN}. */
+    @SuppressWarnings("deprecation")
     static int maxFlowers(Level level, Block flower) {
         ServerConfig.Settings settings = ServerConfig.settingsFor(level);
         return settings == null ? UNKNOWN : settings.maxFlowers(BuiltInRegistries.BLOCK.getKey(flower));
     }
 
+    // Forge deprecates the vanilla block registry in favour of ForgeRegistries, which common code cannot use.
     /** Most flowers one flower pot of this flower may hold, or {@link #UNKNOWN}. */
+    @SuppressWarnings("deprecation")
     static int maxPotFlowers(Level level, Block flower) {
         ServerConfig.Settings settings = ServerConfig.settingsFor(level);
         return settings == null ? UNKNOWN : settings.maxPotFlowers(BuiltInRegistries.BLOCK.getKey(flower));
@@ -94,7 +98,7 @@ public final class FlowerGrowth {
     /**
      * After a successful placement on the server: when the placed flower went into a cluster, sends the vanilla place
      * sound to the placing player, who predicted nothing. Others already hear it from BlockItem, which skips the placer.
-     * NeoForge deprecates BlockState.getSoundType() for its positional variant, which gives the same for clusters.
+     * Forge deprecates the vanilla sound event registry in favour of ForgeRegistries, which common code cannot use.
      */
     @SuppressWarnings("deprecation")
     public static void playAddedSound(Block flower, BlockPlaceContext context) {
@@ -149,7 +153,7 @@ public final class FlowerGrowth {
      * Returns null when the pot or item does not match or the pot may not grow, so vanilla goes on as usual.
      */
     @Nullable
-    public static ItemInteractionResult addToVanillaPot(Block pottedFlower, ItemStack stack, Level level, BlockPos pos,
+    public static InteractionResult addToVanillaPot(Block pottedFlower, ItemStack stack, Level level, BlockPos pos,
             Player player) {
         PottedFlowerClusterBlock pot = ModBlocks.potOf(pottedFlower);
         if (pot == null || !stack.is(pot.flower().asItem())
@@ -159,12 +163,14 @@ public final class FlowerGrowth {
         return addToPot(pot.defaultBlockState(), stack, level, pos, player);
     }
 
-    static ItemInteractionResult addToPot(BlockState newState, ItemStack stack, Level level, BlockPos pos, Player player) {
+    static InteractionResult addToPot(BlockState newState, ItemStack stack, Level level, BlockPos pos, Player player) {
         level.setBlock(pos, newState, Block.UPDATE_ALL);
         level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
         player.awardStat(Stats.POT_FLOWER);
-        stack.consume(1, player);
-        return ItemInteractionResult.sidedSuccess(level.isClientSide());
+        if (!player.getAbilities().instabuild) {
+            stack.shrink(1);
+        }
+        return InteractionResult.sidedSuccess(level.isClientSide());
     }
 
     /** A cluster as its vanilla flower, for vanilla checks that name the flower block (wither rose danger). */

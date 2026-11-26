@@ -10,9 +10,15 @@ import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 
 @Mixin(WalkNodeEvaluator.class)
 public abstract class WalkNodeEvaluatorMixin {
-    // Mobs judge a cluster like its vanilla flower, so they avoid wither rose clusters like wither roses.
-    @ModifyVariable(method = "getPathTypeFromState", at = @At("STORE"), ordinal = 0)
+    // Mobs judge a cluster like its vanilla flower, so they avoid wither rose clusters like wither roses:
+    // the block itself here, its neighbours in checkNeighbourBlocks.
+    @ModifyVariable(method = "getBlockPathTypeRaw", at = @At("STORE"), ordinal = 0)
     private static BlockState fullerflowers$asVanillaFlower(BlockState state) {
+        return FlowerGrowth.asVanillaFlower(state);
+    }
+
+    @ModifyVariable(method = "checkNeighbourBlocks", at = @At("STORE"), ordinal = 0)
+    private static BlockState fullerflowers$neighbourAsVanillaFlower(BlockState state) {
         return FlowerGrowth.asVanillaFlower(state);
     }
 }
