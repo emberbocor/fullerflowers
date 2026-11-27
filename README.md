@@ -50,7 +50,7 @@ Available for NeoForge, Forge and Fabric.
 | | NeoForge | Forge | Fabric |
 |---|---|---|---|
 | Minecraft | 26.3 | 26.3 | 26.3 |
-| Loader | NeoForge 26.3.0.0-beta or newer | Forge 66.0.0 or newer | Fabric Loader 0.19.3 or newer |
+| Loader | NeoForge 26.3.0.0-beta or newer | Forge 66.0.2 or newer | Fabric Loader 0.19.3 or newer |
 | Other | | | Fabric API 0.160.5+26.3 or newer for Minecraft 26.3 |
 | Jar | `fullerflowers-neoforge-26.3-<version>.jar` | `fullerflowers-forge-26.3-<version>.jar` | `fullerflowers-fabric-26.3-<version>.jar` |
 
