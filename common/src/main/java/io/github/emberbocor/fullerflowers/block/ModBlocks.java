@@ -51,6 +51,7 @@ public final class ModBlocks {
                 {Blocks.WITHER_ROSE, Blocks.POTTED_WITHER_ROSE},
                 {Blocks.OPEN_EYEBLOSSOM, Blocks.POTTED_OPEN_EYEBLOSSOM},
                 {Blocks.CLOSED_EYEBLOSSOM, Blocks.POTTED_CLOSED_EYEBLOSSOM},
+                {Blocks.GOLDEN_DANDELION, Blocks.POTTED_GOLDEN_DANDELION},
         };
         for (Block[] pair : flowers) {
             Block flower = pair[0];
