@@ -10,7 +10,7 @@ Available for NeoForge, Forge and Fabric.
 
 ## Features
 
-- **Flower clusters.** Up to 4 flowers of the same kind in one block by default, configurable up to 8, for all 16 small vanilla flowers.
+- **Flower clusters.** Up to 4 flowers of the same kind in one block by default, configurable up to 8, for all 17 small vanilla flowers.
 - **Bone meal grows them.** Bone meal on a flower makes a cluster of 2 and adds one flower per use. A full cluster drops a flower instead, like the tall flowers do.
 - **Place to add.** Placing the same flower on a flower or cluster adds it to the block, like pink petals. Sneak to place it next to the flower as usual.
 - **Fuller flower pots.** A potted flower takes more of the same flower, up to 3 by default, and gives them back one by one.
@@ -33,7 +33,7 @@ Available for NeoForge, Forge and Fabric.
 | Using an empty hand on a pot with several flowers | One flower comes out. With 2 flowers, the normal potted flower is left. |
 | Breaking a pot with several flowers | The flower pot and all of its flowers drop. |
 
-- **Supported flowers.** Dandelion, poppy, blue orchid, allium, azure bluet, red tulip, orange tulip, white tulip, pink tulip, oxeye daisy, cornflower, lily of the valley, torchflower, wither rose, open eyeblossom and closed eyeblossom. Tall flowers, pink petals and flowers from other mods are not changed.
+- **Supported flowers.** Dandelion, poppy, blue orchid, allium, azure bluet, red tulip, orange tulip, white tulip, pink tulip, oxeye daisy, cornflower, lily of the valley, torchflower, wither rose, open eyeblossom, closed eyeblossom and golden dandelion. Tall flowers, pink petals and flowers from other mods are not changed.
 - **Eyeblossoms.** Eyeblossom clusters and pots open and close like the vanilla eyeblossom, at the same time and with the same sounds and particles, and keep their number of flowers. Open and closed eyeblossoms share one limit: an override for either one applies to both.
 - **One flower is the vanilla flower.** A block with one flower is the normal vanilla flower, and a pot with one flower is the normal vanilla potted flower. Clusters start at 2.
 - **Limits.** Each flower has a limit, 4 by default and up to 8. A pot holds up to 3 flowers by default and never more than 4, and never more than the limit of its flower. A flower with a limit of 1 behaves exactly like vanilla: bone meal does nothing on it and placing the same flower does not stack.
@@ -85,7 +85,7 @@ maxFlowers = 4
 # ["minecraft:poppy=5", "minecraft:wither_rose=1"]. Each value is a whole number from 1 to 8.
 # Supported flowers: dandelion, poppy, blue_orchid, allium, azure_bluet, red_tulip, orange_tulip,
 # white_tulip, pink_tulip, oxeye_daisy, cornflower, lily_of_the_valley, torchflower, wither_rose,
-# open_eyeblossom, closed_eyeblossom.
+# open_eyeblossom, closed_eyeblossom, golden_dandelion.
 # Open and closed eyeblossoms share one limit: an override for either one applies to both.
 flowerOverrides = []
 

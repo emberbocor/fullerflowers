@@ -30,5 +30,7 @@
   "block.fullerflowers.open_eyeblossom_cluster": "Open Eyeblossom",
   "block.fullerflowers.potted_open_eyeblossom_cluster": "Potted Open Eyeblossom",
   "block.fullerflowers.closed_eyeblossom_cluster": "Closed Eyeblossom",
-  "block.fullerflowers.potted_closed_eyeblossom_cluster": "Potted Closed Eyeblossom"
+  "block.fullerflowers.potted_closed_eyeblossom_cluster": "Potted Closed Eyeblossom",
+  "block.fullerflowers.golden_dandelion_cluster": "Golden Dandelion",
+  "block.fullerflowers.potted_golden_dandelion_cluster": "Potted Golden Dandelion"
 }
