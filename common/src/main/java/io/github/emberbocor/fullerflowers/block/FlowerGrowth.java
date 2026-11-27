@@ -152,8 +152,16 @@ public final class FlowerGrowth {
     public static InteractionResult addToVanillaPot(Block pottedFlower, ItemStack stack, Level level, BlockPos pos,
             Player player) {
         PottedFlowerClusterBlock pot = ModBlocks.potOf(pottedFlower);
-        if (pot == null || !stack.is(pot.flower().asItem())
-                || maxPotFlowers(level, pot.flower()) < PottedFlowerClusterBlock.MIN_FLOWERS) {
+        if (pot == null || !stack.is(pot.flower().asItem())) {
+            return null;
+        }
+        int max = maxPotFlowers(level, pot.flower());
+        if (max == UNKNOWN) {
+            // A client without the config predicts nothing: the vanilla CONSUME of a pot that already holds a plant
+            // (NeoForge 26.2+ would otherwise predict taking the flower out).
+            return InteractionResult.CONSUME;
+        }
+        if (max < PottedFlowerClusterBlock.MIN_FLOWERS) {
             return null;
         }
         return addToPot(pot.defaultBlockState(), stack, level, pos, player);
