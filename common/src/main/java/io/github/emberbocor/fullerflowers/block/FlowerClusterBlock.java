@@ -1,11 +1,7 @@
 package io.github.emberbocor.fullerflowers.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -18,6 +14,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -31,9 +28,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  * the vanilla flower; the rest of its behavior comes from the copied block properties.
  */
 public final class FlowerClusterBlock extends Block implements BonemealableBlock {
-    public static final MapCodec<FlowerClusterBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            BuiltInRegistries.BLOCK.byNameCodec().fieldOf("flower").forGetter(FlowerClusterBlock::flower),
-            propertiesCodec()).apply(instance, FlowerClusterBlock::new));
     public static final int MIN_FLOWERS = 2;
     public static final int MAX_FLOWERS = 8;
     public static final IntegerProperty FLOWERS = IntegerProperty.create("flower_amount", MIN_FLOWERS, MAX_FLOWERS);
@@ -44,11 +38,6 @@ public final class FlowerClusterBlock extends Block implements BonemealableBlock
         super(properties);
         this.flower = flower;
         registerDefaultState(stateDefinition.any().setValue(FLOWERS, MIN_FLOWERS));
-    }
-
-    @Override
-    protected MapCodec<? extends FlowerClusterBlock> codec() {
-        return CODEC;
     }
 
     /** The vanilla flower this cluster is made of. */
@@ -126,17 +115,19 @@ public final class FlowerClusterBlock extends Block implements BonemealableBlock
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
         return true;
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state,
+            BonemealSource source) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state,
+            BonemealSource source) {
         FlowerGrowth.growOrDrop(this, level, pos, state);
     }
 }

@@ -1,13 +1,10 @@
 package io.github.emberbocor.fullerflowers.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-
 import io.github.emberbocor.fullerflowers.platform.Services;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Prediction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -31,10 +28,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 /** A flower pot holding two to four flowers of one vanilla small flower. One flower is the vanilla potted flower. */
 public final class PottedFlowerClusterBlock extends Block {
-    public static final MapCodec<PottedFlowerClusterBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            BuiltInRegistries.BLOCK.byNameCodec().fieldOf("flower").forGetter(PottedFlowerClusterBlock::flower),
-            BuiltInRegistries.BLOCK.byNameCodec().fieldOf("potted").forGetter(PottedFlowerClusterBlock::pottedFlower),
-            propertiesCodec()).apply(instance, PottedFlowerClusterBlock::new));
     public static final int MIN_FLOWERS = 2;
     public static final int MAX_FLOWERS = 4;
     public static final IntegerProperty FLOWERS = IntegerProperty.create("flower_amount", MIN_FLOWERS, MAX_FLOWERS);
@@ -47,11 +40,6 @@ public final class PottedFlowerClusterBlock extends Block {
         this.flower = flower;
         this.pottedFlower = pottedFlower;
         registerDefaultState(stateDefinition.any().setValue(FLOWERS, MIN_FLOWERS));
-    }
-
-    @Override
-    protected MapCodec<? extends PottedFlowerClusterBlock> codec() {
-        return CODEC;
     }
 
     /** The vanilla flower in this pot. */
@@ -120,7 +108,7 @@ public final class PottedFlowerClusterBlock extends Block {
             BlockHitResult hitResult) {
         ItemStack taken = new ItemStack(flower);
         if (!player.addItem(taken)) {
-            player.drop(taken, false);
+            player.drop(taken, false, Prediction.PREDICTED);
         }
         int count = state.getValue(FLOWERS);
         level.setBlock(pos, count > MIN_FLOWERS ? state.setValue(FLOWERS, count - 1) : pottedFlower.defaultBlockState(),

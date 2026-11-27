@@ -2,78 +2,63 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "minecraft:flower_pot"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
-      "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
+          "modifier": [
             {
-              "add": false,
-              "conditions": [
-                {
-                  "block": "fullerflowers:potted_red_tulip_cluster",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "flower_amount": "2"
-                  }
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "fullerflowers:potted_red_tulip_cluster",
+                "state": {
+                  "flower_amount": "2"
                 }
-              ],
-              "count": 2.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 2
             },
             {
-              "add": false,
-              "conditions": [
-                {
-                  "block": "fullerflowers:potted_red_tulip_cluster",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "flower_amount": "3"
-                  }
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "fullerflowers:potted_red_tulip_cluster",
+                "state": {
+                  "flower_amount": "3"
                 }
-              ],
-              "count": 3.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 3
             },
             {
-              "add": false,
-              "conditions": [
-                {
-                  "block": "fullerflowers:potted_red_tulip_cluster",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "flower_amount": "4"
-                  }
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "fullerflowers:potted_red_tulip_cluster",
+                "state": {
+                  "flower_amount": "4"
                 }
-              ],
-              "count": 4.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 4
             }
           ],
           "name": "minecraft:red_tulip"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "fullerflowers:blocks/potted_red_tulip_cluster"

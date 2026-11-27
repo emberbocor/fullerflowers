@@ -2,117 +2,95 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
+          "modifier": [
             {
-              "add": false,
-              "conditions": [
-                {
-                  "block": "fullerflowers:lily_of_the_valley_cluster",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "flower_amount": "2"
-                  }
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "fullerflowers:lily_of_the_valley_cluster",
+                "state": {
+                  "flower_amount": "2"
                 }
-              ],
-              "count": 2.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 2
             },
             {
-              "add": false,
-              "conditions": [
-                {
-                  "block": "fullerflowers:lily_of_the_valley_cluster",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "flower_amount": "3"
-                  }
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "fullerflowers:lily_of_the_valley_cluster",
+                "state": {
+                  "flower_amount": "3"
                 }
-              ],
-              "count": 3.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 3
             },
             {
-              "add": false,
-              "conditions": [
-                {
-                  "block": "fullerflowers:lily_of_the_valley_cluster",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "flower_amount": "4"
-                  }
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "fullerflowers:lily_of_the_valley_cluster",
+                "state": {
+                  "flower_amount": "4"
                 }
-              ],
-              "count": 4.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 4
             },
             {
-              "add": false,
-              "conditions": [
-                {
-                  "block": "fullerflowers:lily_of_the_valley_cluster",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "flower_amount": "5"
-                  }
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "fullerflowers:lily_of_the_valley_cluster",
+                "state": {
+                  "flower_amount": "5"
                 }
-              ],
-              "count": 5.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 5
             },
             {
-              "add": false,
-              "conditions": [
-                {
-                  "block": "fullerflowers:lily_of_the_valley_cluster",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "flower_amount": "6"
-                  }
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "fullerflowers:lily_of_the_valley_cluster",
+                "state": {
+                  "flower_amount": "6"
                 }
-              ],
-              "count": 6.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 6
             },
             {
-              "add": false,
-              "conditions": [
-                {
-                  "block": "fullerflowers:lily_of_the_valley_cluster",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "flower_amount": "7"
-                  }
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "fullerflowers:lily_of_the_valley_cluster",
+                "state": {
+                  "flower_amount": "7"
                 }
-              ],
-              "count": 7.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 7
             },
             {
-              "add": false,
-              "conditions": [
-                {
-                  "block": "fullerflowers:lily_of_the_valley_cluster",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "flower_amount": "8"
-                  }
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "fullerflowers:lily_of_the_valley_cluster",
+                "state": {
+                  "flower_amount": "8"
                 }
-              ],
-              "count": 8.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 8
             },
             {
-              "function": "minecraft:explosion_decay"
+              "type": "minecraft:explosion_decay"
             }
           ],
           "name": "minecraft:lily_of_the_valley"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "fullerflowers:blocks/lily_of_the_valley_cluster"
