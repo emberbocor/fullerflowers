@@ -14,6 +14,9 @@ public final class NeoForgePlatformHelper implements PlatformHelper {
         return FMLPaths.CONFIGDIR.get();
     }
 
+    // NeoForge 26.2.0.93 deprecates getFullPotsView for removal in 26.3; its replacement getFullPot is missing in the
+    // minimum 26.2.0.0-beta.
+    @SuppressWarnings("removal")
     @Override
     public boolean isPottable(Block block) {
         return ((FlowerPotBlock) Blocks.FLOWER_POT).getFullPotsView().containsKey(BuiltInRegistries.BLOCK.getKey(block));
